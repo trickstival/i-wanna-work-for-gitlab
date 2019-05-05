@@ -23,6 +23,7 @@
                     Play Story
                 </st-button>
             </div>
+            <story-player />
         </div>
         <img src="@/assets/hero-bg-right.svg" class="hero-bg hero-bg-right">
     </section>
@@ -30,9 +31,11 @@
 
 <script>
 import StButton from '@/components/StButton'
+import StoryPlayer from '@/components/StoryPlayer'
 export default {
     components: {
-        StButton
+        StButton,
+        StoryPlayer
     }
 }
 </script>
@@ -75,6 +78,7 @@ export default {
 .btn-toolbar {
     display: flex;
     justify-content: center;
+    margin-bottom: 40px;
     & > button {
         margin-right: 15px;
     }
