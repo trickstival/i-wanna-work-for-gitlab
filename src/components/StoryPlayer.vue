@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import * as Scenes from './player-scenes/'
+import scenes from './player-scenes/'
 export default {
     props: {
         value: {
@@ -22,10 +22,12 @@ export default {
             type: Number
         }
     },
+    data () {
+        return {
+            scenes
+        }
+    },
     computed: {
-        scenes () {
-            return Object.values(Scenes)
-        },
         currentSceneComponent () {
             return this.scenes[this.value]
         }

@@ -19,8 +19,9 @@
                     Download Resume
                 </st-button>
                 <st-button color="#e65328" bg-color="#fff">
-                    <i class="fas fa-play"></i>
-                    Play Story
+                    <a href="mailto:trick_stival@hotmail.com">
+                        Contact Me
+                    </a>
                 </st-button>
             </div>
             <story-player />

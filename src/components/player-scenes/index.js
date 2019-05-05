@@ -1,7 +1,7 @@
 import FirstScene from './FirstScene'
 import SecondScene from './SecondScene'
 
-export {
+export default [
     FirstScene,
     SecondScene
-}
+]

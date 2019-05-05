@@ -1,20 +1,24 @@
 <template>
-    <scene>
-        <img class="me-vue" src="@/assets/me_vuejs.png">
-        <play-button-overlay class="play-button" />
-        <div class="baloon">
-            <span class="bla first-bla">PLS,</span>
-            <span class="bla second-bla">HOVER,</span>
-            <span class="bla third-bla">ME.</span>
+    <scene video="@/assets/vuejs_summit.mp4">
+        <div class="me-vue">
+            <img src="@/assets/me_vuejs.png">
+            <baloon>
+                <span class="bla first-bla">PLS,</span>
+                <span class="bla second-bla">HOVER,</span>
+                <span class="bla third-bla">ME.</span>
+            </baloon>
         </div>
     </scene>
 </template>
 
 <script>
 import Scene from '@/components/Scene'
+import Baloon from '@/components/scene-use/Baloon'
+
 export default {
     components: {
-        Scene
+        Scene,
+        Baloon
     }
 }
 </script>
@@ -61,32 +65,20 @@ export default {
 .baloon {
     width: 200px;
     height: 120px;
-    border-radius: 20px;
-    background-color: #fff;
     position: absolute;
-    right: 22%;
-    top: 5%;
-    color: #000;
+    top: -50px;
+    right: -100px;
     transform: rotate(5deg);
-    &::before {
-        content: '';
-        position: absolute;
-        bottom: -24%;
-        left: 40px;
-        border: 51px solid transparent;
-        border-top-color: white;
-        border-bottom: 0;
-        border-left: 0;
-    }
 }
 
-.scene::before {
-    content: '';
-    position: absolute;
-    margin: auto;
-    display: block;
-    background-color: red;
-    width: 20px;
-    height: 20px;
+@media screen and (max-width: 768px) {
+    .me-vue {
+        left: 1%;
+        top: 25%;
+    }
+    .baloon {
+        transform: scale(.8);
+        right: -60px;
+    }
 }
 </style>

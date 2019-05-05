@@ -29,5 +29,9 @@ export default {
     &:hover {
         filter: brightness(90%);
     }
+    & > a {
+        text-decoration: none;
+        color: inherit;
+    }
 }
 </style>
