@@ -1,5 +1,5 @@
 <template>
-    <div :style="{ backgroundColor: bgColor, color }" class="baloon">
+    <div :style="{ backgroundColor: bgColor, color, width, height }" class="baloon">
         <slot />
     </div>
 </template>
@@ -14,6 +14,14 @@ export default {
         color: {
             default: '#000',
             type: String
+        },
+        width: {
+            type: String,
+            default: '200px'
+        },
+        height: {
+            type: String,
+            default: '120px'
         }
     }
 }
@@ -21,7 +29,10 @@ export default {
 
 <style lang="scss" scoped>
 .baloon {
+    padding: 10px;
+    position: absolute;
     border-radius: 20px;
+    background-color: #fff;
     &::before {
         content: '';
         position: absolute;
