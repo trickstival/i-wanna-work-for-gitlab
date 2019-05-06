@@ -1,7 +1,12 @@
 <template>
-    <scene @next="next" @start="next">
-        <character :image="require('@/assets/characters/me_vuejs.png')" class="me-vue">
-            <div v-if="characters.ME.currentDialog" class="default-dialog">
+    <scene
+        :started.sync="isFirstSceneRunning"
+        @next="next">
+        <character
+            :class="{ jingling: !currentAct }"
+            :image="require('@/assets/characters/me_vuejs.png')" 
+            class="me-vue">
+            <div v-if="isFirstSceneRunning" class="default-dialog">
                 {{ characters.ME.currentDialog }}
             </div>
             <template v-else>
@@ -27,35 +32,45 @@ export default {
     data () {
         return {
             characters: {
-                ME: BuildCharacter({
-                    dialogs: [
-                        `Hello, I'm Patrick`,
-                        `I'm here to show some of the stuff I can do with JS`
-                    ]
-                })
+                ME: BuildCharacter({})
             },
             currentAct: null
         }
     },
     computed: {
+        isFirstSceneRunning: {
+            set (val) {
+                if (val) {
+                    this.start()
+                    return
+                }
+                this.currentAct = null
+            },
+            get () {
+                return this.currentAct
+            }
+        },
         firstScene () {
+            const { ME } = this.characters
             return [
                 () => {
-                    const { ME } = this.characters
-                    ME.speak()
-                }
+                    ME.speak(`Hello, I'm Patrick`)
+                },
+                () => ME.speak(`I'm here to show some of the stuff I can do with JS`)
             ]  
         }
     },
     methods: {
+        start () {
+            this.next()
+        },
         next () {
             const { firstScene } = this
-            const currentAct = firstScene[firstScene.indexOf(this.currentAct) + 1]
+            this.currentAct = firstScene[firstScene.indexOf(this.currentAct) + 1]
+
             if (!this.currentAct) {
-                this.characters.ME.speak()
                 return
             }
-            this.currentAct = currentAct
             this.currentAct()
         }
     }
@@ -68,6 +83,9 @@ export default {
     position: absolute;
     left: 35%;
     top: 20%;
+}
+
+.jingling {
     animation: 1s infinite alternate jingle;
     animation-timing-function: ease-in;
 }

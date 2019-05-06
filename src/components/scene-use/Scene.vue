@@ -1,6 +1,6 @@
 <template>
     <div class="scene scene-video">
-        <play-button-overlay v-if="showOverlay" @click="start" />
+        <play-button-overlay v-if="!started" @click="start" />
         <slot />
         <div @click="$emit('next')" class="scene-selector">
             Go Next
@@ -18,14 +18,15 @@ export default {
     components: {
         PlayButtonOverlay
     },
-    data () {
-        return {
-            showOverlay: true
+    props: {
+        started: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
         start () {
-            this.showOverlay = false
+            this.$emit('update:started', true)
             this.$emit('start')
         }
     }
