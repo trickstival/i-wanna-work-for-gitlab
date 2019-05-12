@@ -66,7 +66,7 @@ export default {
                 (act) => ME.speak(`I'm here to show some of the stuff I can do with JS`)
             ].map(exec => Act(this.firstScene, exec))
         },
-        sceneEntitites () {
+        sceneEntities () {
             return [
                 ...Object.values(this.characters)
             ].map(entity => entity.getEntity())

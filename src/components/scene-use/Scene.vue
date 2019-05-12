@@ -1,7 +1,11 @@
 <template>
     <div class="scene scene-video">
         <play-button-overlay v-if="!started" @click="start" />
-        <component v-for="entity in entities" :is="entity.component" />
+        <component
+            v-for="entity in entities"
+            v-bind="entity.binding"
+            :is="entity.component"
+        />
         <slot />
         <div @click="$emit('next')" class="scene-selector">
             Go Next

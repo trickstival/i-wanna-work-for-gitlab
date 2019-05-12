@@ -1,5 +1,6 @@
-export default () => {
+export default (implementer) => {
     const self = {
+        binding: null,
         coordinates: {
             set top (val) {
                 self.boundAct
@@ -13,6 +14,9 @@ export default () => {
             set right (val) {
     
             }
+        },
+        get component () {
+            return implementer.getComponent()
         },
         boundAct: null
     }

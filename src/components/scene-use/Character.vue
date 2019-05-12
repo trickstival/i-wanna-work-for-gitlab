@@ -11,44 +11,13 @@
 import Baloon from './Baloon'
 import SceneEntity from './SceneEntity'
 
-const CharacterComponent = {
-    functional: true,
-    render (h, { props }) {
-
-        const baloonDescriptor = {
-            style: {
-                top: '-50px',
-                right: '-100px',
-                transform: 'rotate(5deg)'
-            }
-        }
-
-        return h('div', {
-            class: 'character'
-        }, [
-            h('img', { attrs: { src: props.image } }),
-            h(Baloon, baloonDescriptor, [this.$slots.default || props.speech])
-        ])
-    },
-    components: {
-        Baloon
-    },
-    props: {
-        image: {
-            type: String
-        },
-        speech: {
-            type: String
-        }
-    }
-}
-
 export const BuildCharacter = () => {
     let speechCount = 0
     let boundAct = null
+    let sceneEntity = null
+
     return {
         currentDialog: '',
-        sceneEntity: SceneEntity(),
         set boundAct (act) {
             sceneEntity.boundAct = boundAct = act
         },
@@ -64,15 +33,21 @@ export const BuildCharacter = () => {
             speakAction()
         },
         getComponent () {
-            return CharacterComponent
+            return comp
         },
         getEntity () {
-            return this.sceneEntity
+            if (!sceneEntity) {
+                sceneEntity = SceneEntity(this)
+            }
+            sceneEntity.binding = {
+                image: require('@/assets/characters/me_vuejs.png')
+            }
+            return sceneEntity
         }
     }
 }
 
-export default {
+const comp = {
     components: {
         Baloon
     },
@@ -100,6 +75,8 @@ export default {
         }
     }
 }
+
+export default comp
 </script>
 
 <style>
