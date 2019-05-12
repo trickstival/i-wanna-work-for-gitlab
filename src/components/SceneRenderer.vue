@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Scene from './scene-use/Scene'
+import Scene, { Act } from './scene-use/Scene'
 import Character, { BuildCharacter } from './scene-use/Character'
 import Baloon from './scene-use/Baloon'
 
@@ -32,7 +32,7 @@ export default {
     data () {
         return {
             characters: {
-                ME: BuildCharacter({})
+                ME: BuildCharacter()
             },
             currentAct: null
         }
@@ -53,11 +53,13 @@ export default {
         firstScene () {
             const { ME } = this.characters
             return [
-                () => {
+                (act) => {
+                    act.addCharacter(ME)
                     ME.speak(`Hello, I'm Patrick`)
+                    ME.speak('test 2')
                 },
-                () => ME.speak(`I'm here to show some of the stuff I can do with JS`)
-            ]  
+                (act) => ME.speak(`I'm here to show some of the stuff I can do with JS`)
+            ].map(Act)
         }
     },
     methods: {
@@ -65,13 +67,17 @@ export default {
             this.next()
         },
         next () {
+            if (this.currentAct && !this.currentAct.done) {
+                this.currentAct.resume()
+                return
+            }
             const { firstScene } = this
             this.currentAct = firstScene[firstScene.indexOf(this.currentAct) + 1]
 
             if (!this.currentAct) {
                 return
             }
-            this.currentAct()
+            return this.currentAct.start()
         }
     }
 }

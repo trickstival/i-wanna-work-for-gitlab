@@ -10,12 +10,21 @@
 <script>
 import Baloon from './Baloon'
 
-export const BuildCharacter = ({ dialogs }) => {
+export const BuildCharacter = () => {
+    let speechCount = 0
     return {
         currentDialog: '',
-        speak (dialog = dialogs[dialogs.indexOf(this.currentDialog) + 1]) {
-            console.log('speaking', dialog)
-            this.currentDialog = dialog
+        boundAct: null,
+        speak (dialog) {
+            const speakAction = () => {
+                this.currentDialog = dialog
+                speechCount++
+            }
+            if (this.boundAct && speechCount) {
+                this.boundAct.appendAction(speakAction)
+                return
+            }
+            speakAction()
         }
     }
 }
