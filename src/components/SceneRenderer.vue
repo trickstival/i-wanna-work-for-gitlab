@@ -1,8 +1,9 @@
 <template>
     <scene
         :started.sync="isFirstSceneRunning"
+        :entities="sceneEntities"
         @next="next">
-        <character
+        <!-- <character
             :class="{ jingling: !currentAct }"
             :image="require('@/assets/characters/me_vuejs.png')" 
             class="me-vue">
@@ -14,12 +15,13 @@
                 <span class="bla second-bla">HOVER,</span>
                 <span class="bla third-bla">ME.</span>
             </template>
-        </character>
+        </character> -->
     </scene>
 </template>
 
 <script>
-import Scene, { Act } from './scene-use/Scene'
+import Scene from './scene-use/Scene'
+import Act from './scene-use/Act'
 import Character, { BuildCharacter } from './scene-use/Character'
 import Baloon from './scene-use/Baloon'
 
@@ -63,6 +65,11 @@ export default {
                 },
                 (act) => ME.speak(`I'm here to show some of the stuff I can do with JS`)
             ].map(exec => Act(this.firstScene, exec))
+        },
+        sceneEntitites () {
+            return [
+                ...Object.values(this.characters)
+            ].map(entity => entity.getEntity())
         }
     },
     methods: {

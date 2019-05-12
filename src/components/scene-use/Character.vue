@@ -11,6 +11,38 @@
 import Baloon from './Baloon'
 import SceneEntity from './SceneEntity'
 
+const CharacterComponent = {
+    functional: true,
+    render (h, { props }) {
+
+        const baloonDescriptor = {
+            style: {
+                top: '-50px',
+                right: '-100px',
+                transform: 'rotate(5deg)'
+            }
+        }
+
+        return h('div', {
+            class: 'character'
+        }, [
+            h('img', { attrs: { src: props.image } }),
+            h(Baloon, baloonDescriptor, [this.$slots.default || props.speech])
+        ])
+    },
+    components: {
+        Baloon
+    },
+    props: {
+        image: {
+            type: String
+        },
+        speech: {
+            type: String
+        }
+    }
+}
+
 export const BuildCharacter = () => {
     let speechCount = 0
     let boundAct = null
@@ -30,6 +62,12 @@ export const BuildCharacter = () => {
                 return
             }
             speakAction()
+        },
+        getComponent () {
+            return CharacterComponent
+        },
+        getEntity () {
+            return this.sceneEntity
         }
     }
 }
