@@ -56,10 +56,13 @@ export default {
                 (act) => {
                     act.addCharacter(ME)
                     ME.speak(`Hello, I'm Patrick`)
-                    ME.speak('test 2')
+                    ME.speak(`I'm here to show some of the stuff I can do with JS`)
+                    ME.speak(`First, let me tell ya about my first project`)
+                    ME.speak(`It all started in 2017, with this project called ScoutUp!`)
+
                 },
                 (act) => ME.speak(`I'm here to show some of the stuff I can do with JS`)
-            ].map(Act)
+            ].map(exec => Act(this.firstScene, exec))
         }
     },
     methods: {

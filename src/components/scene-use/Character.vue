@@ -9,19 +9,24 @@
 
 <script>
 import Baloon from './Baloon'
+import SceneEntity from './SceneEntity'
 
 export const BuildCharacter = () => {
     let speechCount = 0
+    let boundAct = null
     return {
         currentDialog: '',
-        boundAct: null,
+        sceneEntity: SceneEntity(),
+        set boundAct (act) {
+            sceneEntity.boundAct = boundAct = act
+        },
         speak (dialog) {
             const speakAction = () => {
                 this.currentDialog = dialog
                 speechCount++
             }
-            if (this.boundAct && speechCount) {
-                this.boundAct.appendAction(speakAction)
+            if (boundAct && speechCount) {
+                boundAct.appendAction(speakAction)
                 return
             }
             speakAction()

@@ -15,7 +15,7 @@
 <script>
 import PlayButtonOverlay from './PlayButtonOverlay'
 
-export const Act = (execution) => {
+export const Act = (scene, execution) => {
     const initialState = {
         boundCharacters: [],
         appendedActions: [],
