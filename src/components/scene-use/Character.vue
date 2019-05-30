@@ -2,7 +2,10 @@
     <div class="character">
         <img :src="image">
         <baloon v-bind="attrs.baloon">
-            <slot />
+            <slot v-if="!internalSpeech" />
+            <template v-else>
+                {{ internalSpeech }}
+            </template>
         </baloon>
     </div>
 </template>
@@ -11,37 +14,32 @@
 import Baloon from './Baloon'
 import SceneEntity from './SceneEntity'
 
-export const BuildCharacter = () => {
-    let speechCount = 0
-    let boundAct = null
+// A character is also a scene entity
+export const BuildCharacter = ({ id, ...binding }) => {
     let sceneEntity = null
+    let scene = null
 
     return {
-        currentDialog: '',
         set boundAct (act) {
             sceneEntity.boundAct = boundAct = act
         },
+        goTo (directions) {
+            sceneEntity.moveTo(directions)
+        },
         speak (dialog) {
-            const speakAction = () => {
-                this.currentDialog = dialog
-                speechCount++
+            return (scene) => {
+                sceneEntity.componentInstance.internalSpeech = dialog
+                scene.pause()
             }
-            if (boundAct && speechCount) {
-                boundAct.appendAction(speakAction)
-                return
-            }
-            speakAction()
         },
         getComponent () {
             return comp
         },
         getEntity () {
             if (!sceneEntity) {
-                sceneEntity = SceneEntity(this)
+                sceneEntity = SceneEntity(id, this)
             }
-            sceneEntity.binding = {
-                image: require('@/assets/characters/me_vuejs.png')
-            }
+            sceneEntity.binding = binding
             return sceneEntity
         }
     }
@@ -54,6 +52,11 @@ const comp = {
     props: {
         image: {
             type: String
+        }
+    },
+    data () {
+        return {
+            internalSpeech: 'Hover Me!'
         }
     },
     computed: {
@@ -79,6 +82,8 @@ const comp = {
 export default comp
 </script>
 
-<style>
-
+<style lang="scss">
+.character {
+    transition: all ease 1s;
+}
 </style>

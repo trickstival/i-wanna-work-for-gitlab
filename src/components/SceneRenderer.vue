@@ -1,28 +1,14 @@
 <template>
     <scene
-        :started.sync="isFirstSceneRunning"
-        :entities="sceneEntities"
-        @next="next">
-        <!-- <character
-            :class="{ jingling: !currentAct }"
-            :image="require('@/assets/characters/me_vuejs.png')" 
-            class="me-vue">
-            <div v-if="isFirstSceneRunning" class="default-dialog">
-                {{ characters.ME.currentDialog }}
-            </div>
-            <template v-else>
-                <span class="bla first-bla">PLS,</span>
-                <span class="bla second-bla">HOVER,</span>
-                <span class="bla third-bla">ME.</span>
-            </template>
-        </character> -->
+        :initial-entities="sceneEntities"
+        :actions="actions">
     </scene>
 </template>
 
 <script>
 import Scene from './scene-use/Scene'
-import Act from './scene-use/Act'
-import Character, { BuildCharacter } from './scene-use/Character'
+import Character from './scene-use/Character'
+import { characters, actions } from './lists'
 import Baloon from './scene-use/Baloon'
 
 export default {
@@ -33,70 +19,26 @@ export default {
     },
     data () {
         return {
-            characters: {
-                ME: BuildCharacter()
-            },
+            actions,
             currentAct: null
         }
     },
     computed: {
-        isFirstSceneRunning: {
-            set (val) {
-                if (val) {
-                    this.start()
-                    return
-                }
-                this.currentAct = null
-            },
-            get () {
-                return this.currentAct
-            }
-        },
-        firstScene () {
-            const { ME } = this.characters
-            return [
-                (act) => {
-                    act.addCharacter(ME)
-                    ME.speak(`Hello, I'm Patrick`)
-                    ME.speak(`I'm here to show some of the stuff I can do with JS`)
-                    ME.speak(`First, let me tell ya about my first project`)
-                    ME.speak(`It all started in 2017, with this project called ScoutUp!`)
-
-                },
-                (act) => ME.speak(`I'm here to show some of the stuff I can do with JS`)
-            ].map(exec => Act(this.firstScene, exec))
-        },
         sceneEntities () {
             return [
-                ...Object.values(this.characters)
-            ].map(entity => entity.getEntity())
+                ...characters
+            ].map(char => char.getEntity())
         }
     },
     methods: {
-        start () {
-            this.next()
-        },
-        next () {
-            if (this.currentAct && !this.currentAct.done) {
-                this.currentAct.resume()
-                return
-            }
-            const { firstScene } = this
-            this.currentAct = firstScene[firstScene.indexOf(this.currentAct) + 1]
 
-            if (!this.currentAct) {
-                return
-            }
-            return this.currentAct.start()
-        }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe');
 .me-vue {
-    position: absolute;
     left: 35%;
     top: 20%;
 }

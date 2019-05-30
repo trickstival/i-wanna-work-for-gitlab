@@ -2,12 +2,15 @@
     <div class="scene scene-video">
         <play-button-overlay v-if="!started" @click="start" />
         <component
-            v-for="entity in entities"
+            v-for="(entity, idx) in entities"
             v-bind="entity.binding"
+            :key="entity.id + idx"
             :is="entity.component"
+            :ref="entity.id"
+            class="entity"
         />
         <slot />
-        <div @click="$emit('next')" class="scene-selector">
+        <div @click="nextFrame && nextFrame()" class="scene-selector">
             Go Next
             <span
                 @click="$emit('input', idx)"
@@ -25,20 +28,80 @@ export default {
         PlayButtonOverlay
     },
     props: {
-        started: {
-            default: false
+        actions: {
+            default: () => [],
+            type: Function
         },
-        entities: {
+        initialEntities: {
             default: [],
             type: Array
         }
     },
+    data () {
+        return {
+            started: false,
+            waitingFrame: null,
+            nextFrame: null,
+            entities: []
+        }
+    },
+    computed: {
+
+    },
     methods: {
         start () {
+            this.play()
             this.$emit('update:started', true)
             this.$emit('start')
-        }
-    }
+        },
+        mountEntity (entity) {
+            const [ref] = this.$refs[entity.id]
+            entity.mount(ref)
+        },
+        async play () {
+            this.started = true
+            const { actions } = this
+            
+            const sceneApi = {
+                addEntity: entity => {
+                    this.entities.push(entity)
+                    return this.$nextTick()
+                        .then(() => this.mountEntity(entity))
+                },
+                getEntity: (id) => {
+                    // it should be immutable :(
+                    return this.entities.find(entity => entity.id === id)
+                },
+                get (id) {
+                    return this.getEntity(id).implementer
+                },
+                pause: () => {
+                    this.waitingFrame = new Promise((resolve) => {
+                        this.nextFrame = resolve
+                    })
+                }
+            }
+            const actionIterator = actions(sceneApi)
+            let isDone = false
+            do {
+                const act = await actionIterator.next()
+                if (act.value) {
+                    act.value(sceneApi)
+                    // if the scene was pause in the current action, wait for the user click
+                    if (this.waitingFrame) {
+                        await this.waitingFrame
+                    }
+                }
+                isDone = act.done
+            } while (!isDone)
+        },
+    },
+    created () {
+        this.entities = this.initialEntities
+    },
+    mounted () {
+        this.entities.forEach(entity => this.mountEntity(entity))
+    },
 }
 </script>
 
@@ -47,6 +110,9 @@ export default {
     display: flex;
     opacity: 0;
     z-index: 1;
+}
+.entity {
+    position: absolute;
 }
 .scene {
     height: 100%;

@@ -33,7 +33,12 @@ export default {
     position: absolute;
     border-radius: 20px;
     background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
     &::before {
+        mix-blend-mode: color-burn;
         content: '';
         position: absolute;
         bottom: -24%;

@@ -1,22 +1,27 @@
-export default (implementer) => {
+export default (id, implementer) => {
+    const sceneContainer = document.querySelector('.scene-video')
+
     const self = {
-        binding: null,
-        coordinates: {
-            set top (val) {
-                self.boundAct
-            },
-            set bottom (val) {
-                
-            },
-            set left (val) {
-    
-            },
-            set right (val) {
-    
-            }
-        },
+        id,
+        binding: {},
+        implementer,
+        componentInstance: null,
         get component () {
             return implementer.getComponent()
+        },
+        moveTo (directions) {
+            const domEl = this.componentInstance.$el
+            domEl.style.left = undefined
+            domEl.style.right = undefined
+            domEl.style.top = undefined
+            domEl.style.bottom = undefined
+
+            for (const direction in directions) {
+                domEl.style[direction] = directions[direction]
+            }
+        },
+        mount (componentInstance) {
+            this.componentInstance = componentInstance
         },
         boundAct: null
     }
