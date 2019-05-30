@@ -85,5 +85,6 @@ export default comp
 <style lang="scss">
 .character {
     transition: all ease 1s;
+    z-index: 2;
 }
 </style>

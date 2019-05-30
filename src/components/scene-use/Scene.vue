@@ -1,14 +1,16 @@
 <template>
     <div class="scene scene-video">
         <play-button-overlay v-if="!started" @click="start" />
-        <component
-            v-for="(entity, idx) in entities"
-            v-bind="entity.binding"
-            :key="entity.id + idx"
-            :is="entity.component"
-            :ref="entity.id"
-            class="entity"
-        />
+        <transition-group name="fade">
+            <component
+                v-for="(entity, idx) in entities"
+                v-bind="entity.binding"
+                :key="entity.id + idx"
+                :is="entity.component"
+                :ref="entity.id"
+                class="entity"
+            />
+        </transition-group>
         <slot />
         <div @click="nextFrame && nextFrame()" class="scene-selector">
             Go Next
@@ -106,10 +108,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 .play-overlay {
     display: flex;
     opacity: 0;
-    z-index: 1;
+    z-index: 5;
 }
 .entity {
     position: absolute;

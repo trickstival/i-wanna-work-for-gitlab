@@ -36,7 +36,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 22px;
+    font-size: 20px;
     &::before {
         mix-blend-mode: color-burn;
         content: '';

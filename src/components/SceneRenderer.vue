@@ -57,26 +57,6 @@ export default {
     }
 }
 
-.bla {
-    font-family: 'ZCOOL KuaiLe', cursive;
-    position: absolute;
-    font-size: 25px;
-}
-.first-bla {
-    left: 30px;
-    top: 20px;
-}
-
-.second-bla {
-    top: 40%;
-    left: 40%;
-}
-
-.third-bla {
-    left: 70%;
-    top: 60%;
-}
-
 .default-dialog {
     display: flex;
     justify-content: center;
