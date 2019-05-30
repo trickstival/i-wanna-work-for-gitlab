@@ -7,15 +7,11 @@
 
 <script>
 import Scene from './scene-use/Scene'
-import Character from './scene-use/Character'
 import { characters, actions } from './lists'
-import Baloon from './scene-use/Baloon'
 
 export default {
     components: {
-        Scene,
-        Baloon,
-        Character
+        Scene
     },
     data () {
         return {

@@ -1,6 +1,4 @@
 export default (id, implementer) => {
-    const sceneContainer = document.querySelector('.scene-video')
-
     const self = {
         id,
         binding: {},
@@ -22,8 +20,7 @@ export default (id, implementer) => {
         },
         mount (componentInstance) {
             this.componentInstance = componentInstance
-        },
-        boundAct: null
+        }
     }
     return self 
 }

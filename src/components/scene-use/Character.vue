@@ -17,12 +17,8 @@ import SceneEntity from './SceneEntity'
 // A character is also a scene entity
 export const BuildCharacter = ({ id, ...binding }) => {
     let sceneEntity = null
-    let scene = null
 
     return {
-        set boundAct (act) {
-            sceneEntity.boundAct = boundAct = act
-        },
         goTo (directions) {
             sceneEntity.moveTo(directions)
         },

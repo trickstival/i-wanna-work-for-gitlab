@@ -35,7 +35,7 @@ export default {
             type: Function
         },
         initialEntities: {
-            default: [],
+            default: () => [],
             type: Array
         }
     },
