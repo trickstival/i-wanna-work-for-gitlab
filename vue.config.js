@@ -1,4 +1,4 @@
-const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin')
+const PreloadWebpackPlugin = require('preload-webpack-plugin')
 
 module.exports = {
     configureWebpack: {
