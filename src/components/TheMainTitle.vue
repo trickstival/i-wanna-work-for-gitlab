@@ -51,6 +51,7 @@ export default {
 }
 .hero-content {
     max-width: 1000px;
+    padding: 10px;
 }
 .hero-bg {
     width: 25%;
