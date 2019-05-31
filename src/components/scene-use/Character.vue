@@ -1,11 +1,7 @@
 <template>
     <div class="character">
         <img :src="image">
-        <baloon v-bind="attrs.baloon">
-            <slot v-if="!internalSpeech" />
-            <template v-else>
-                {{ internalSpeech }}
-            </template>
+        <baloon v-bind="attrs.baloon" :speech="internalSpeech">
         </baloon>
     </div>
 </template>
@@ -35,7 +31,7 @@ export const BuildCharacter = ({ id, ...binding }) => {
             if (!sceneEntity) {
                 sceneEntity = SceneEntity(id, this)
             }
-            sceneEntity.binding = binding
+            sceneEntity.bind(binding)
             return sceneEntity
         }
     }
@@ -82,5 +78,10 @@ export default comp
 .character {
     transition: all ease 1s;
     z-index: 2;
+}
+@media screen and (max-width: 768px) {
+    .character {
+        transform: scale(.7);
+    }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-    <div :style="{ backgroundColor: bgColor, color, width, height }" class="baloon">
-        <slot />
+    <div :style="currentStyle" class="baloon">
+        {{ speech }}
     </div>
 </template>
 
@@ -22,6 +22,30 @@ export default {
         height: {
             type: String,
             default: '120px'
+        },
+        speech: {
+            type: String
+        }
+    },
+    computed: {
+        recommendedFontsize () {
+            const length = this.speech.length
+            if (length < 10) {
+                return '20px'
+            }
+            if (length < 90) {
+                return '19px'
+            }
+            return '17px'
+        },
+        currentStyle () {
+            return {
+                fontSize: this.recommendedFontsize,
+                backgroundColor: this.bgColor,
+                color: this.color,
+                width: this.width,
+                height: this.height
+            }
         }
     }
 }

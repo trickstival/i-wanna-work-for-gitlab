@@ -1,37 +1,43 @@
 import SceneEntity from '@/components/scene-use/SceneEntity'
 import thePirateImage from '@/assets/the-pirate-example.jpg'
 import jsCaptureTheFrameworksImage from '@/assets/js-capture.gif'
+import cff from '@/assets/CFF.gif'
+
+import ProjectImage from './ProjectImage'
 
 prefetchImages([
     thePirateImage,
-    jsCaptureTheFrameworksImage
+    jsCaptureTheFrameworksImage,
+    cff
 ])
 
 const image = (id, src, url) => {
-    return SceneEntity(id, {
+    const entity = SceneEntity(id, {
         getComponent () {
-            return {
-                name: 'imageEntity',
-                data () {
-                    return {
-                        src,
-                        url
-                    }
-                },
-                render (h) {
-                    return h('img', {
-                        attrs: { src: this.src },
-                        style: {
-                            cursor: 'pointer'
-                        },
-                        on: {
-                            click: () => window.open(this.url)
-                        }
-                    })
-                }
-            }
+            return ProjectImage
+            // return {
+            //     name: 'imageEntity',
+            //     data () {
+            //         return {
+            //             src,
+            //             url
+            //         }
+            //     },
+            //     render (h) {
+            //         return h('img', {
+            //             attrs: { src: this.src },
+            //             style: {
+            //                 cursor: 'pointer'
+            //             },
+            //             on: {
+            //                 click: () => window.open(this.url)
+            //             }
+            //         })
+            //     }
         }
     })
+    entity.bind({ src, url })
+    return entity
 }
 
 // Open-source project image sources
@@ -47,18 +53,23 @@ export default async function* (scene) {
     // -- Show Projects --
     patrick.goTo({ left: 0 })
 
-    // the-pirate
     const entityImage = image('the-pirate', thePirateImage, 'https://github.com/trickstival/Javascript-Capture-The-Frameworks')
+    const { binding } = entityImage
+
+    // the-pirate
     await scene.addEntity(entityImage)
-    entityImage.moveTo({ top: '25%', right: '15px' })
     yield patrick.speak('This is how you use my lib called "the-pirate"')
 
     // JS Capture the frameworks
-    entityImage.componentInstance.src = jsCaptureTheFrameworksImage
-    entityImage.componentInstance.url = 'https://github.com/trickstival/Javascript-Capture-The-Frameworks'
+    binding.src = jsCaptureTheFrameworksImage
+    binding.url = 'https://github.com/trickstival/Javascript-Capture-The-Frameworks'
     yield patrick.speak('JS Capture the Frameworks is a game I made based on pacman with divs!')
 
-    yield patrick.speak('This other "project" is just shrek spinning.. HEHE')
+    // Code For Facebook
+    binding.src = cff
+    yield patrick.speak('Code for Facebook is a chrome extension that provides markdown highlighting for facebook posts!')
+
+    // yield patrick.speak('This other "project" is just shrek spinning.. HEHE')
 }
 
 function prefetchImages (images) {
