@@ -15,7 +15,7 @@ export const BuildCharacter = ({ id, ...binding }) => {
     let sceneEntity = null
 
     return {
-        goTo (directions) {
+        goTo (directions = {}) {
             sceneEntity.moveTo(directions)
         },
         speak (dialog) {

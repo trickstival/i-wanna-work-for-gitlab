@@ -1,3 +1,4 @@
+// TODO: move id to implementer
 export default (id, implementer) => {
     const self = {
         id,
@@ -11,6 +12,9 @@ export default (id, implementer) => {
             this.binding = binding
         },
         moveTo (directions) {
+            if (!this.componentInstance) {
+                throw new Error('Fool, you have to add the entity to the scene before moving it')
+            }
             const domEl = this.componentInstance.$el
             domEl.style.left = undefined
             domEl.style.right = undefined

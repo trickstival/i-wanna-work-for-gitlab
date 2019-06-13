@@ -3,7 +3,7 @@
         <img 
             :src="src" 
             :url="url"
-            @click="window.open(props.url)"
+            @click="open"
             class="project-image"
         >
     </div>
@@ -21,6 +21,11 @@ export default {
         url: {
             type: String,
             required: true
+        }
+    },
+    methods: {
+        open () {
+            window.open(this.url)
         }
     }
 }
