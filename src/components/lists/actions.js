@@ -47,8 +47,8 @@ export default async function* (scene) {
     yield patrick.speak('Let me show you some of my open-source projects')
 
     // -- Show Projects --
-    patrick.goTo({ left: 0 })
-    patrick.getEntity().binding.class = 'side-char'
+    patrick.goTo({ left: 0, bottom: 0 })
+    patrick.getEntity().binding.class += ' side-char'
 
     // the-pirate
     const codeSnippet = SceneEntity('snippet', CodeSnippetImplementer)
@@ -102,7 +102,7 @@ export default async function* (scene) {
     scene.removeEntity(otherProjectsList)
 
     // Finished!
-    patrick.goTo({ left: null })
+    patrick.goTo({ left: '', bottom: '' })
     yield patrick.speak('I hope you guys like it 😊')
     patrick.speak('Hover me!')
 }

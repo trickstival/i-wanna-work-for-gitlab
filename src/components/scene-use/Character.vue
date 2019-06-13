@@ -57,11 +57,38 @@ const comp = {
     },
     data () {
         return {
-            internalSpeech: 'Hover Me!',
-            isHidden: false
+            speechFrameFragment: 'Hover Me!',
+            isHidden: false,
+            lastTypingCb: null
+        }
+    },
+    methods: {
+        scheduleTyping (value) {
+            this.speechFrameFragment = ''
+                let idx = 0
+                const cb = this.lastTypingCb = () => {
+                    const wasCancelled = cb !== this.lastTypingCb
+                    if (this.speechFrameFragment === value || wasCancelled) {
+                        return
+                    }
+
+                    this.speechFrameFragment += value[idx]
+                    idx++
+                    requestAnimationFrame(cb)
+                }
+
+                cb()
         }
     },
     computed: {
+        internalSpeech: {
+            get () {
+                return this.speechFrameFragment
+            },
+            set (value) {
+                this.scheduleTyping(value)
+            }
+        },
         attrs () {
             const baloon = Object.assign(
                 { 
