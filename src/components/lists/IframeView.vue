@@ -29,4 +29,9 @@ export default IframeView
 .iframe-view {
     border: none;
 }
+@media screen and (max-width: 768px) {
+    .iframe-view {
+        width: 100%!important;
+    }
+}
 </style>

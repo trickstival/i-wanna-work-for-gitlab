@@ -40,4 +40,9 @@ export default {
     .project-image {
         cursor: pointer;
     }
+    @media screen and (max-width: 768px) {
+        .project-image-wrapper {
+            width: 100%;
+        }
+    }
 </style>

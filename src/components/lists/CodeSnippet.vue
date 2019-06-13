@@ -26,6 +26,12 @@ export default CodeSnippet
 </script>
 
 <style lang="scss" scoped>
-.code-snippet-root {
+@media screen and (max-width: 768px) {
+    .code-snippet-root {
+        right: 0!important;
+        width: 100%;
+        height: 100px;
+    }
 }
+
 </style>

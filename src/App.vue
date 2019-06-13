@@ -10,7 +10,6 @@
 }
 body {
   margin: 0;
-  overflow: hidden;
 }
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 #app {

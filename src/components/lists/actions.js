@@ -48,6 +48,7 @@ export default async function* (scene) {
 
     // -- Show Projects --
     patrick.goTo({ left: 0 })
+    patrick.getEntity().binding.class = 'side-char'
 
     // the-pirate
     const codeSnippet = SceneEntity('snippet', CodeSnippetImplementer)
