@@ -44,13 +44,6 @@ export default {
         return {
             resume: require('@/assets/Curriculum.pdf')
         }
-    },
-    methods: {
-        downloadResume () {
-            console.log('teste')
-            console.log()
-            window.open(require('@/assets/Curriculum.pdf'), 'blank')
-        }
     }
 }
 </script>
