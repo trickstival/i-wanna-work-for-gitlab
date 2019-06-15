@@ -36,7 +36,7 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe');
 .me-vue {
     left: 35%;
-    top: 20%;
+    // top: 20%;
 }
 
 .jingling {
@@ -63,15 +63,10 @@ export default {
 
 @media screen and (max-width: 768px) {
     .me-vue {
+        bottom: 20%;
         &:not(.side-char) {
-            left: 50%;
-            margin-left: -100px;
+            left: 18%;
         }
-        top: 35%;
-    }
-    .baloon {
-        transform: scale(.8);
-        right: -60px;
     }
 }
 </style>

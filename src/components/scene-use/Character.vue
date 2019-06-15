@@ -164,7 +164,6 @@ export default comp
 }
 @media screen and (max-width: 768px) {
     .character {
-        transition: top 1s ease, bottom 1s ease;
         height: 150px;
         width: 150px;
     }
