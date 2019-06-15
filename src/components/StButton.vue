@@ -1,5 +1,9 @@
 <template>
-    <button :style="{ backgroundColor: bgColor, color }" class="btn">
+    <button
+        v-on="$listeners"
+        :style="{ backgroundColor: bgColor, color }" 
+        class="btn"
+    >
         <slot />
     </button>
 </template>

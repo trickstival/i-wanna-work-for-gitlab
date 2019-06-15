@@ -16,7 +16,9 @@
             </p>
             <div class="btn-toolbar">
                 <st-button>
-                    Download Resume
+                    <a :href="resume" download>
+                        Download Resume
+                    </a>
                 </st-button>
                 <st-button color="#e65328" bg-color="#fff">
                     <a href="mailto:trick_stival@hotmail.com">
@@ -37,6 +39,18 @@ export default {
     components: {
         StButton,
         StoryPlayer
+    },
+    data () {
+        return {
+            resume: require('@/assets/Curriculum.pdf')
+        }
+    },
+    methods: {
+        downloadResume () {
+            console.log('teste')
+            console.log()
+            window.open(require('@/assets/Curriculum.pdf'), 'blank')
+        }
     }
 }
 </script>
