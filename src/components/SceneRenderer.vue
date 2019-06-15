@@ -36,7 +36,7 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe');
 .me-vue {
     left: 35%;
-    // top: 20%;
+    bottom: 0;
 }
 
 .jingling {

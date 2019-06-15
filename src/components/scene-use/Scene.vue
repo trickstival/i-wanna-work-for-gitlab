@@ -53,9 +53,6 @@ export default {
             entities: []
         }
     },
-    computed: {
-
-    },
     methods: {
         start () {
             this.play()
@@ -67,6 +64,7 @@ export default {
             entity.mount(ref)
         },
         async play () {
+            this.entities.forEach(e => this.mountEntity(e))
             this.started = true
             const { actions } = this
             

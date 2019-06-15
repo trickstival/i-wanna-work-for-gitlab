@@ -56,7 +56,7 @@ export default async function* (scene) {
 
     await scene.addEntity(codeSnippet)
     codeSnippet.moveTo({ right: '5px' })
-    yield patrick.speak('This is how you use my lib called "the-pirate"')
+    yield patrick.speak('This is how you use my lib called "the-pirate".')
 
     scene.removeEntity(codeSnippet)
 
@@ -83,6 +83,10 @@ export default async function* (scene) {
     // JS Capture the frameworks
     iframeBinding.src = 'https://trickstival.github.io/Javascript-Capture-The-Frameworks/'
     yield patrick.speak('JS Capture the Frameworks is a game I made based on pacman with divs!')
+
+    // CSS Blend Magnify
+    iframeBinding.src = 'https://cranky-hermann-a850ab.netlify.com/'
+    yield patrick.speak('CSS Blend Magnify is a PoC of css blend modes. Try to move your mouse/finger on it!')
 
     scene.removeEntity(iframe)
 
