@@ -42,4 +42,9 @@ export default {
     margin: auto;
     width: 100px;
 }
+@media screen and (max-width: 768px) {
+    .play-overlay {
+        opacity: 1!important;
+    }
+}
 </style>
