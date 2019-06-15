@@ -21,7 +21,10 @@
                     </a>
                 </st-button>
                 <st-button color="#e65328" bg-color="#fff">
-                    <a href="https://www.linkedin.com/in/trickstival/">
+                    <a
+                        target="_blank"
+                        href="https://www.linkedin.com/in/trickstival/"
+                    >
                         Contact Me
                     </a>
                 </st-button>
