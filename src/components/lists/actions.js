@@ -3,6 +3,7 @@ import SceneEntity from '@/components/scene-use/SceneEntity'
 import { CodeSnippetImplementer } from './CodeSnippet'
 import { IframeViewImplementer } from './IframeView'
 import { ProjectListImplementer } from './ProjectList'
+import { CommunityProjectsImplementer } from './CommunityProjects'
 
 // assets
 import cff from '@/assets/CFF.gif'
@@ -104,6 +105,12 @@ export default async function* (scene) {
     scene.addEntity(otherProjectsList)
     yield patrick.speak(`I've recently started to contribute to these other projects:`)
     scene.removeEntity(otherProjectsList)
+
+    // Community Projects
+    const communityProjects = SceneEntity('community-projects', CommunityProjectsImplementer)
+    scene.addEntity(communityProjects)
+    yield patrick.speak('I have done some community projects and talks too!')
+    scene.removeEntity(communityProjects)
 
     // Finished!
     patrick.goTo({ left: '', bottom: '' })
