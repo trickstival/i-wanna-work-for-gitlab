@@ -30,6 +30,7 @@
                 </st-button>
             </div>
             <story-player />
+            <the-nav />
         </div>
         <img src="@/assets/hero-bg-right.svg" class="hero-bg hero-bg-right">
     </section>
@@ -38,10 +39,12 @@
 <script>
 import StButton from '@/components/StButton'
 import StoryPlayer from '@/components/StoryPlayer'
+import TheNav from '@/components/TheNav'
 export default {
     components: {
         StButton,
-        StoryPlayer
+        StoryPlayer,
+        TheNav
     },
     data () {
         return {
