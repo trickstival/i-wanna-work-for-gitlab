@@ -15,19 +15,19 @@
                 </i>
             </p>
             <div class="btn-toolbar">
-                <st-button>
-                    <a :href="resume" download>
+                <a :href="resume" download>
+                    <st-button>
                         Download Resume
-                    </a>
-                </st-button>
-                <st-button color="#e65328" bg-color="#fff">
-                    <a
-                        target="_blank"
-                        href="https://www.linkedin.com/in/trickstival/"
-                    >
+                    </st-button>
+                </a>
+                <a
+                    target="_blank"
+                    href="https://www.linkedin.com/in/trickstival/"
+                >
+                    <st-button color="#e65328" bg-color="#fff">
                         Contact Me
-                    </a>
-                </st-button>
+                    </st-button>
+                </a>
             </div>
             <story-player />
             <the-nav />
@@ -94,7 +94,7 @@ export default {
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
-    & > button {
+    & > a {
         margin-right: 15px;
     }
 }
