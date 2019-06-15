@@ -1,20 +1,24 @@
 <template>
-    <div class="scene scene-video">
+    <div @click="nextFrame && nextFrame()" class="scene scene-video">
         <play-button-overlay v-if="!started" @click="start" />
-        <transition-group name="fade">
-            <component
-                v-for="(entity, idx) in entities"
-                v-bind="entity.binding"
-                :key="entity.id + idx"
-                :is="entity.component"
-                :ref="entity.id"
-                class="entity"
-            />
-        </transition-group>
+        <div @click.stop>
+            <transition-group 
+                tag="div"
+                name="fade"
+            >
+                <component
+                    v-for="(entity, idx) in entities"
+                    v-bind="entity.binding"
+                    :key="entity.id + idx"
+                    :is="entity.component"
+                    :ref="entity.id"
+                    class="entity"
+                />
+            </transition-group>
+        </div>
         <slot />
         <div
-            v-if="nextFrame" 
-            @click="nextFrame && nextFrame()" 
+            v-if="nextFrame"
             class="scene-selector">
             <span class="text"> 
                 <template v-if="nextFrame">Go Next</template>

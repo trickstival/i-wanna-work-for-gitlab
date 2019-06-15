@@ -1,16 +1,27 @@
 <template>
     <div :style="{ pointerEvents: isHidden ? 'none' : '' }" class="character">
         <div :style="{ 
-                visibility: isHidden ? 'hidden' : 'initial', 
-            }">
-            <img :src="image">
+                opacity: isHidden ? 0 : 1
+            }"
+            class="char-content"
+        >
+            <img :src="image" class="char-image">
             <baloon v-bind="attrs.baloon" :speech="internalSpeech">
             </baloon>
         </div>
         <button
             @click="isHidden = !isHidden"
             class="hide-button">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" height="512" viewBox="0 0 1024 1024" version="1.1"><path fill="white" d="M512.003072 64C264.570234 64 64 264.570234 64 511.991814 64 759.426701 264.570234 960 512.003072 960 759.423629 960 960 759.426701 960 511.991814 960 264.570234 759.423629 64 512.003072 64L512.003072 64 512.003072 64ZM512.003072 900.266189C297.907891 900.266189 123.733811 726.097222 123.733811 511.99079 123.733811 297.905843 297.913005 123.729722 512.003072 123.729722 726.092109 123.729722 900.265165 297.905843 900.265165 511.99079 900.265165 726.097222 726.092109 900.266189 512.003072 900.266189L512.003072 900.266189 512.003072 900.266189ZM556.848186 511.044454 695.21799 374.180602C707.790464 361.767731 707.888678 341.507936 695.471712 328.936493 683.053728 316.356858 662.765286 316.259667 650.222483 328.676634L511.663411 465.703149 375.219014 328.837254C362.70384 316.328211 342.478829 316.259667 329.968768 328.774848 317.455635 341.253197 317.424941 361.507872 329.906355 374.023053L466.161485 510.692518 328.78201 646.594688C316.209536 659.047462 316.111322 679.267354 328.528288 691.846989 334.798662 698.180794 343.02617 701.346163 351.281293 701.346163 359.406496 701.346163 367.536806 698.245248 373.776493 692.096614L511.345235 556.038944 650.031174 695.174003C656.271878 701.444378 664.465626 704.577011 672.688013 704.577011 680.88073 704.577011 689.039693 701.443354 695.280403 695.237434 707.790464 682.757037 707.824224 662.531002 695.343834 649.988205L556.848186 511.044454 556.848186 511.044454Z"/></svg>
+            <svg v-if="!isHidden" class="icon" fill="#fff" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 357 357" style="enable-background:new 0 0 357 357;" xml:space="preserve">
+                <polygon points="357,35.7 321.3,0 178.5,142.8 35.7,0 0,35.7 142.8,178.5 0,321.3 35.7,357 178.5,214.2 321.3,357 357,321.3     214.2,178.5   "/>
+            </svg>
+            <svg v-else viewBox="0 0 488.85 488.85" class="icon" fill="#fff" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" style="enable-background:new 0 0 357 357;" xml:space="preserve">
+                <path fill="white"  d="M244.425,98.725c-93.4,0-178.1,51.1-240.6,134.1c-5.1,6.8-5.1,16.3,0,23.1c62.5,83.1,147.2,134.2,240.6,134.2
+                    s178.1-51.1,240.6-134.1c5.1-6.8,5.1-16.3,0-23.1C422.525,149.825,337.825,98.725,244.425,98.725z M251.125,347.025
+                    c-62,3.9-113.2-47.2-109.3-109.3c3.2-51.2,44.7-92.7,95.9-95.9c62-3.9,113.2,47.2,109.3,109.3
+                    C343.725,302.225,302.225,343.725,251.125,347.025z M248.025,299.625c-33.4,2.1-61-25.4-58.8-58.8c1.7-27.6,24.1-49.9,51.7-51.7
+                    c33.4-2.1,61,25.4,58.8,58.8C297.925,275.625,275.525,297.925,248.025,299.625z"/>
+            </svg>
         </button>
     </div>
 </template>
@@ -63,21 +74,29 @@ const comp = {
         }
     },
     methods: {
-        scheduleTyping (value) {
+        scheduleTyping (value, framerate = 2) {
+            framerate--
+            this.isHidden = false
             this.speechFrameFragment = ''
-                let idx = 0
-                const cb = this.lastTypingCb = () => {
-                    const wasCancelled = cb !== this.lastTypingCb
-                    if (this.speechFrameFragment === value || wasCancelled) {
-                        return
-                    }
-
-                    this.speechFrameFragment += value[idx]
-                    idx++
-                    requestAnimationFrame(cb)
+            let idx = 0
+            let frameCount = 0
+            const cb = this.lastTypingCb = () => {
+                const wasCancelled = cb !== this.lastTypingCb
+                if (this.speechFrameFragment.length >= value.length || wasCancelled) {
+                    return
                 }
 
-                cb()
+                if (frameCount === framerate) {
+                    this.speechFrameFragment += value[idx]
+                    idx++
+                    frameCount = 0
+                } else {
+                    frameCount++
+                }
+                requestAnimationFrame(cb)
+            }
+
+            cb()
         }
     },
     computed: {
@@ -111,36 +130,55 @@ const comp = {
 export default comp
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .character {
-    transition: all ease 1s;
+    transition: bottom 1s ease, left 1s ease, right 1s ease, top 1s ease;
     z-index: 2;
+}
+.char-content {
+    transition: opacity ease 1s;
 }
 .hide-button {
     position: absolute;
-    bottom: 10px;
-    left: 0;
+    bottom: 20px;
+    left: 20px;
     border-radius: 100%;
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     pointer-events: auto;
     outline: none;
-    background-color: red;
+    background-color: #f43735;
     color: white;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
     & > .icon {
-        width: 40px;
-        height: 40px;
+        width: 13px;
+        height: 13px;
     }
 }
 @media screen and (max-width: 768px) {
     .character {
-        transform: scale(.7);
+        transition: top 1s ease, bottom 1s ease;
+        height: 150px;
+        width: 150px;
+    }
+    .char-image {
+        width: 100%;
+        height: 100%;
     }
     .character.side-char {
-        bottom: -50px;
-        left: -10%!important;
+        top: initial;
+        bottom: 0px;
+    }
+    .hide-button {
+        bottom: 0;
+        left: 0;
     }
 }
 </style>

@@ -5,6 +5,6 @@ export default [
     BuildCharacter({
         image: require('@/assets/characters/me_vuejs.png'),
         id: 'patrick',
-        class: 'me-vue'
+        class: ['me-vue']
     })
 ]

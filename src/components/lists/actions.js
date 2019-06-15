@@ -44,11 +44,11 @@ export default async function* (scene) {
     const patrick = scene.get('patrick')
     yield patrick.speak('Hey guys!')
     yield patrick.speak(`I'm Patrick, a Web Developer who really wanna work for you.`)
-    yield patrick.speak('Let me show you some of my open-source projects')
+    yield patrick.speak('Let me show you some of my open-source projects.')
 
     // -- Show Projects --
     patrick.goTo({ left: 0, bottom: 0 })
-    patrick.getEntity().binding.class += ' side-char'
+    patrick.getEntity().binding.class.push('side-char')
 
     // the-pirate
     const codeSnippet = SceneEntity('snippet', CodeSnippetImplementer)
@@ -103,6 +103,8 @@ export default async function* (scene) {
 
     // Finished!
     patrick.goTo({ left: '', bottom: '' })
+    const patrickClass = patrick.getEntity().binding.class
+    patrickClass.splice(patrickClass.indexOf('side-char'), 1)
     yield patrick.speak('I hope you guys like it 😊')
     patrick.speak('Hover me!')
 }

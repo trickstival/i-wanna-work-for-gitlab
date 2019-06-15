@@ -63,8 +63,11 @@ export default {
 
 @media screen and (max-width: 768px) {
     .me-vue {
-        left: 1%;
-        top: 25%;
+        &:not(.side-char) {
+            left: 50%;
+            margin-left: -100px;
+        }
+        top: 35%;
     }
     .baloon {
         transform: scale(.8);
