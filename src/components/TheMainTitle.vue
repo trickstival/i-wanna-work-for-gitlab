@@ -21,7 +21,7 @@
                     </a>
                 </st-button>
                 <st-button color="#e65328" bg-color="#fff">
-                    <a href="mailto:trick_stival@hotmail.com">
+                    <a href="https://www.linkedin.com/in/trickstival/">
                         Contact Me
                     </a>
                 </st-button>
