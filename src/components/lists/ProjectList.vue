@@ -34,10 +34,11 @@ export default ProjectList
 <style lang="scss" scoped>
 // Internal SCSS
 .project-list {
-    right: 15%;
+    top: 0;
     height: 100%;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    width: 100%;
 
     & > ul {
         list-style: none;
