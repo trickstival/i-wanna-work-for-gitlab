@@ -7,7 +7,7 @@ Unfortunetly I was not accepted, but I learned a lot of cool
 stuff while building it.
 
 From this project, other two project have begun:
-[CSS Blend Magnify](https://github.com/trickstival/css-blend-magnify)
+[CSS Blend Magnify](https://github.com/trickstival/css-blend-magnify) and
 [Vue Typing](https://github.com/trickstival/vue-typing)
 
 I hope you like it :p
