@@ -1,34 +1,13 @@
-# why_gitlab
-[Demo](https://peaceful-williams-644365.netlify.com/#/)
-## Project setup
-```
-yarn install
-```
+# I wanna work for gitlab
+[Check the Demo](https://peaceful-williams-644365.netlify.com/#/)
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+I made this website when I tried to join Gitlab's team.
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+Unfortunetly I was not accepted, but I learned a lot of cool
+stuff while building it.
 
-### Run your tests
-```
-yarn run test
-```
+From this project, other two project have begun:
+[CSS Blend Magnify](https://github.com/trickstival/css-blend-magnify)
+[Vue Typing](https://github.com/trickstival/vue-typing)
 
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+I hope you like it :p
