@@ -5,7 +5,7 @@
 
 I made this website when I tried to join Gitlab's team.
 
-Unfortunetly I was not accepted, but I learned a lot of cool
+Unfortunately I was not accepted, but I learned a lot of cool
 stuff while building it.
 
 From this project, other two project have begun:
